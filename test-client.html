@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>In-App Notification Test</title>
+  <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+</head>
+<body>
+  <h2>Socket.io In-App Notification Test</h2>
+  <div id="output"></div>
+  <script>
+    
+    const socket = io('http://localhost:5000');
+    
+    socket.emit('join', { userId: 'user123' });
+
+    socket.on('notification', function(data) {
+      document.getElementById('output').innerHTML +=
+        `<div style="margin:10px 0;padding:10px;border:1px solid #ccc;">
+          <strong>${data.title}</strong><br>${data.message}
+        </div>`;
+      alert('In-app notification: ' + data.title + '\n' + data.message);
+    });
+  </script>
+</body>
+</html>
